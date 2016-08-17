@@ -1,0 +1,11 @@
+{
+  "directory": "public/vendors/",
+  "color": true,
+  "save": true,
+  "interactive": true,
+  "scripts": {
+    "preinstall": "",
+    "postinstall": "",
+    "preuninstall": ""
+  }
+}

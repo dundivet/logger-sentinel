@@ -1,0 +1,33 @@
+extends base
+
+block title
+    ='Página de Prueba'
+
+block content
+    h1 Esta es mi primera página
+    // -
+    #container-angular(ng-controller="acumuladorAppCtrl as vm")
+        | <div class="alert" ng-class="{}">{{ vm.total }}</div>
+        //.alert()
+        //    = '{{ vm.total }}'
+
+        form
+            input.form-control(type="number", ng-model="vm.counter")
+            button.btn.btn-primary-outline(type="submit", ng-click="vm.sumar()") +
+            button.btn.btn-danger-outline(type="submit", ng-click="vm.restar()") -
+
+        #alert-btn
+            a.btn.btn-info(ng-click="vm.alert='alert-info'") info
+            a.btn.btn-success(ng-click="vm.alert='alert-success'") success
+            a.btn.btn-danger(ng-click="vm.alert='alert-danger'") danger
+
+    #container-angular-request(ng-controller="requestCtrl as req")
+        table.table.table-bordered
+            tr(ng-repeat="val in req.elements")
+                td {{ $index + 1 }}. {{ val }}
+        a.btn.btn-primary-outline(ng-click="req.findAll()")
+            span.glyphicon.glyphicon-search
+            | Buscar
+
+block javascripts
+    script(type="text/javascript", src="/web/js/index.js")

@@ -1,0 +1,88 @@
+extends base
+
+block body
+    body(ng-app="acumuladorApp", ng-controller="wstestController as vm")
+
+block content
+    #socketStatus
+    textarea#chat.form-control(rows=12, ng-model="vm.chat")
+    .input-group
+        input#entrada.form-control(ng-model="vm.input")
+        span.input-group-btn
+            button#submit.btn.btn-primary-outline(ng-click="vm.send()") Enviar
+
+block javascripts
+    script(type="text/javascript", src="/web/js/fancywebsocket.js")
+    script(type="text/javascript", src="/web/js/wstest.js")
+    script(type="text/javascript").
+        $(document).ready(function () {
+            try {
+                ws = new WebSocket("ws://127.0.0.1:5000");
+                //$('#toolbar').css('background', '#65A33F');
+                $('#socketStatus').html('Connected to localhost');
+                //console.log("startWs:" + ip);
+                //listen for browser events so we know to update the document title
+                $(window).bind("blur", function() {
+                    focus = false;
+                    //updateTitle();
+                });
+
+                $(window).bind("focus", function() {
+                    focus = true;
+                    unread = 0;
+                    //updateTitle();
+                });
+            } catch (err) {
+                console.log(err);
+                //setTimeout(startWs, timeout);
+            }
+
+            ws.onmessage = function(event) {
+                /*unread++;
+                updateTitle();
+                var now = new Date();
+                var hh = pad(now.getHours());
+                var mm = pad(now.getMinutes());
+                var ss = pad(now.getSeconds());
+
+                var timeMark = '[' + hh + ':' + mm + ':' + ss + '] ';
+                logString = eval(event.data);
+                var host = logString[0];
+                var line = "<table class='message'><tr><td width='1%' class='date'>" + timeMark + "</td><td width='1%' valign='top' class='host'><a href=?ip=" + host + ">" + host + "</a></td>";
+                line += "<td class='msg-text' width='98%'>" + logString[1]; + "</td></tr>";
+                if (logString[2]) {
+                    line += "<tr><td>&nbsp;</td><td colspan='3' class='msg-text'>" + logString[2] + "</td></tr>";
+                }
+
+                $('#log').append(line);
+                //updateCount();
+                window.scrollBy(0, 100000000000000000);*/
+                console.log(event);
+            };
+
+            ws.onclose = function(){
+                console.log("ws.onclose");
+                //$('#toolbar').css('background', '#933');
+                //$('#socketStatus').html('Disconected');
+                //setTimeout(function() {startWs(selectedIp)}, timeout);
+            }
+            /*function log (text) {
+                var $chat = $('#chat');
+                // Add text to log
+                $chat.append(($chat.val() ? "\n" : '') + text);
+                //Autoscroll
+                $chat[0].scrollTop = $chat[0].scrollHeight - $chat[0].clientHeight;
+            };
+
+            function send(text) {
+                vm.send(text);
+            };
+            $('#entrada').keypress(function(e) {
+                if ( e.keyCode == 13 && this.value ) {
+                    log( 'You: ' + this.value );
+                    send( this.value );
+
+                    $(this).val('');
+                }
+            });*/
+        });

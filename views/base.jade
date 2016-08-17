@@ -1,0 +1,26 @@
+doctype html
+
+html
+    head
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        block head
+            //- Page title
+            title
+                block title
+                ='| Sistema monitoreo'
+            //- Stylesheets
+            include stylesheets
+            block stylesheets
+    block body
+        body(ng-app="acumuladorApp")
+    .container-fluid
+        //- Content block
+        block content
+
+    //- Footer block
+    block footer
+        footer#footer
+
+    //- Javascripts
+    include javascripts
+    block javascripts
