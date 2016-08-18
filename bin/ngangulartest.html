@@ -5,8 +5,41 @@
     <title></title>
 </head>
 <body>
+<div ng-app="websocketTest" ng-controller="websocketTestController">
+    <ul>
+        <li ng-repeat="elem in collection track by $index">
+            {{ elem }}
+        </li>
+    </ul>
+    <form action="" ng-submit="submit()">
+        <input type="text" ng-model="input">
+        <button>Enviar</button>
+    </form>
+</div>
 
+
+<script type="text/javascript" src="/web/vendors/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/web/vendors/angular/angular.min.js"></script>
-<script type="text/javascript" src="/web/vendors/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/web/vendors/socket.io-client/socket.io.js"></script>
+
+<script>
+    angular
+            .module('websocketTest', [])
+            .controller('websocketTestController', function ($scope) {
+                var socket = io('ws://127.0.0.1:3000/');
+
+                $scope.collection = [];
+                $scope.input = '';
+
+                socket.on('chat message', function (message) {
+                    $scope.collection.push(message.message);
+                    $scope.$apply();
+                });
+
+                $scope.submit = function () {
+                    socket.emit('chat message', $scope.input);
+                };
+            });
+</script>
 </body>
 </html>

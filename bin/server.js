@@ -20,10 +20,12 @@ app.use(router);
 
 // ***Routing***
 router.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    //res.sendFile(__dirname + '/ngangulartest.html');
+    res.render('index');
 });
 router.get('/index', function (req, res) {
-    res.render('index', {});
+    //res.sendFile(__dirname + '/index.html');
+    res.render('index');
 });
 //router.get('/wstest', function (req, res) {
 //    res.render('wstest', {});
@@ -50,7 +52,7 @@ io.on('connection', function (socket) {
     console.log('user connected');
 
     socket.on('chat message', function (msg){
-        io.emit('chat message', msg);
+        io.emit('chat message', {message: msg});
         console.log('user message: ' + msg);
     });
 
